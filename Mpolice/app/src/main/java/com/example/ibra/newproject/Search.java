@@ -18,6 +18,8 @@ import com.parse.ParseQuery;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Search extends AppCompatActivity {
     RecyclerView recyclerV;
@@ -48,13 +50,23 @@ public class Search extends AppCompatActivity {
 
     public void doMySearch(String numberP){
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Violations");
-        query.whereEqualTo("Number_plate", numberP);
-        try {
-            obj = query.find();
 
-        } catch (ParseException e) {
-            e.printStackTrace();
-            Log.d("mpolice", "after query");
+        Pattern p = Pattern.compile("(([A-Z]{3})|([a-z]{3}))([\\s])?([1-9][\\d]{2})(([A-Z]{1})|([a-z]{1}))$");
+        // Now create matcher object.
+        Matcher m = p.matcher(numberP);
+        if (m.find()){
+
+            query.whereEqualTo("Number_plate", numberP);
+            try {
+                obj = query.find();
+
+            } catch (ParseException e) {
+                e.printStackTrace();
+                Log.d("mpolice", "after query");
+            }
+
+        }else {
+            System.out.println("Wrong format!");
         }
 
         for (int i =0; i<obj.size();i++){
