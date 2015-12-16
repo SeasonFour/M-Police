@@ -11,6 +11,7 @@ import android.support.v7.widget.SearchView;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.widget.Toast;
 
 import com.parse.ParseException;
 import com.parse.ParseObject;
@@ -49,12 +50,13 @@ public class Search extends AppCompatActivity {
     }
 
     public void doMySearch(String numberP){
-        ParseQuery<ParseObject> query = ParseQuery.getQuery("Violations");
 
         Pattern p = Pattern.compile("(([A-Z]{3})|([a-z]{3}))([\\s])?([1-9][\\d]{2})(([A-Z]{1})|([a-z]{1}))$");
         // Now create matcher object.
         Matcher m = p.matcher(numberP);
         if (m.find()){
+
+            ParseQuery<ParseObject> query = ParseQuery.getQuery("Violations");
 
             query.whereEqualTo("Number_plate", numberP);
             try {
@@ -65,20 +67,21 @@ public class Search extends AppCompatActivity {
                 Log.d("mpolice", "after query");
             }
 
+            for (int i =0; i<obj.size();i++){
+                number_plate.add(obj.get(i).getString("Number_plate"));
+                description.add(obj.get(i).getString("Description"));
+                owner.add(obj.get(i).getString("Location"));
+                status.add(obj.get(i).getString("Violation"));
+            }
+
+            Log.d("mpolice", "before adapter");
+            recyclerV.setAdapter(new MpoliceAdapter(getApplicationContext(),number_plate,description,owner,status));
+            Log.d("mpolice", "after adapter");
+
         }else {
-            System.out.println("Wrong format!");
+            Toast.makeText(getApplicationContext(), "Wrong License Plate!", Toast.LENGTH_LONG).show();
         }
 
-        for (int i =0; i<obj.size();i++){
-            number_plate.add(obj.get(i).getString("Number_plate"));
-            description.add(obj.get(i).getString("Description"));
-            owner.add(obj.get(i).getString("Location"));
-            status.add(obj.get(i).getString("Violation"));
-        }
-
-        Log.d("mpolice", "before adapter");
-        recyclerV.setAdapter(new MpoliceAdapter(getApplicationContext(),number_plate,description,owner,status));
-        Log.d("mpolice", "after adapter");
     }
 
         @Override
