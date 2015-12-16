@@ -1,0 +1,8 @@
+0000000000000000000000000000000000000000 1b5c7c5e699e06f57b2cd343dc4d34528af8889b rtduany <rtduany@gmail.com> 1450035916 +0300	clone: from https://github.com/SeasonFour/Mpolice.git
+1b5c7c5e699e06f57b2cd343dc4d34528af8889b ee91a125dd3047b4f4f7c98d701dafc9992b9737 rtduany <rtduany@gmail.com> 1450039122 +0300	pull origin master: Fast-forward
+ee91a125dd3047b4f4f7c98d701dafc9992b9737 8c5f757a94623378be559c072873579fb6418745 rtduany <rtduany@gmail.com> 1450055463 +0300	pull origin master: Fast-forward
+8c5f757a94623378be559c072873579fb6418745 10daa5c643cb965fad63a11e13aa98c5f147f476 rtduany <rtduany@gmail.com> 1450058014 +0300	commit: modify font size and color
+10daa5c643cb965fad63a11e13aa98c5f147f476 37e8a3d76443a4d98c60468c0a5a71ef0727ebdf rtduany <rtduany@gmail.com> 1450059631 +0300	commit (merge): modify font size and color
+37e8a3d76443a4d98c60468c0a5a71ef0727ebdf fbd779c0b51a17998f98521bd9080ea607351db5 rtduany <rtduany@gmail.com> 1450148629 +0300	commit: integrat LogIn with twitter digits
+fbd779c0b51a17998f98521bd9080ea607351db5 112b6b469584252de798238a32b3bd7196b3bc1e rtduany <rtduany@gmail.com> 1450219668 +0300	commit: merged conflicts
+112b6b469584252de798238a32b3bd7196b3bc1e 74c4321851406a292326a2d849d3341f6f49fa65 rtduany <rtduany@gmail.com> 1450219885 +0300	commit (merge): Merge remote-tracking branch 'origin/master'

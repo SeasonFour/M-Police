@@ -1,0 +1,33 @@
+<resources>
+    <string name="app_name">Mpolice</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_log_in">Log In</string>
+    <string name="enter_bagde_no">Enter badge number</string>
+    <string name="submit">Submit</string>
+    <string name="request_pin">Request for pin.</string>
+    <string name="pin">Enter pin</string>
+    <string name="title_activity_report">Report</string>
+    <string name="report_violation">Report a violation</string>
+    <string name="type_of_violation">Type of violation</string>
+    <string name="hit_and_run">Hit and run</string>
+    <string name="stolen">Stolen</string>
+    <string name="accident">Accident</string>
+    <string name="other">Other, please specify...</string>
+    <string name="specify">Specify violation...</string>
+    <string name="number_plate">Number plate</string>
+    <string name="location">Location</string>
+    <string name="description">Description of the car</string>
+    <string name="report">Report violation</string>
+    <string name="time_last_seen">Time last seen</string>
+    <string name="title_activity_search_plate">SearchPlate</string>
+    <string name="search_number_plate">Search number plate</string>
+    <string name="search">search icon</string>
+    <string name="scan_number_plate">Scan number plate</string>
+    <string name="owner">Owner</string>
+    <string name="set_time">Set Time</string>
+    <string name="status">Status</string>
+    <string name="parse_app_id">7uE5i8t1LBqdC3f5lmlsuCOaXgrZR4iBDtHXtVCO</string>
+    <string name="parse_client_key">Uqp5HP8zWmKJB8S5N6EzhDzdL8rW6EVZ9emkEAeP</string>
+    <string name="mpolice">M-POLICE</string>
+    <string name="enter_plate_number">Enter plate number</string>
+</resources>

@@ -1,0 +1,8 @@
+Merge remote-tracking branch 'origin/master'
+
+Conflicts:
+	Mpolice/app/build.gradle
+	Mpolice/app/src/main/AndroidManifest.xml
+	Mpolice/app/src/main/java/com/example/ibra/newproject/Report.java
+	Mpolice/app/src/main/res/layout/splash_screen.xml
+	Mpolice/app/src/main/res/values/strings.xml
