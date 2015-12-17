@@ -72,12 +72,6 @@
             android:theme="@style/AppTheme.NoActionBar" >
         </activity>
 
-        <activity
-            android:name=".LogInOld"
-            android:label="@string/title_activity_log_in"
-            android:theme="@style/AppTheme.NoActionBar" >
-        </activity>
-
         <service android:name="com.parse.PushService" />
 
         <receiver
