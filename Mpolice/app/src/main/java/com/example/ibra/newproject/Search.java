@@ -12,8 +12,10 @@ import android.support.v7.widget.SearchView;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.View;
 import android.widget.Toast;
 
+import com.michaldrabik.tapbarmenulib.TapBarMenu;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
@@ -22,6 +24,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import butterknife.Bind;
+
 
 public class Search extends AppCompatActivity {
     RecyclerView recyclerV;
@@ -31,6 +37,7 @@ public class Search extends AppCompatActivity {
     List<String> description = new ArrayList<String>();
     List<String> owner = new ArrayList<String>();
     List<String> status = new ArrayList<String>();
+    @Bind(R.id.tapBarMenu) TapBarMenu tapBarMenu;
 
 
     @Override
@@ -38,6 +45,8 @@ public class Search extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         Log.d("mpolice", "before recycler");
         setContentView(R.layout.search);
+
+        ButterKnife.bind(this);
 
 
         recyclerV = (RecyclerView) findViewById(R.id.recycler_violations);
@@ -48,6 +57,8 @@ public class Search extends AppCompatActivity {
 
         handleIntent(getIntent());
         Log.d("mpolice", "after handle intent");
+
+
     }
 
     public void doMySearch(String numberP){
@@ -111,5 +122,34 @@ public class Search extends AppCompatActivity {
 
         }
 
+    }
+
+    @OnClick(R.id.tapBarMenu) public void onMenuButtonClick() {
+        tapBarMenu.toggle();
+    }
+
+    @OnClick({ R.id.item1, R.id.item2, R.id.item3, R.id.item4 }) public void onMenuItemClick(View view) {
+        tapBarMenu.close();
+        switch (view.getId()) {
+            case R.id.item1:
+                Intent i = new Intent(Search.this,Report.class);
+                startActivity(i);
+                break;
+            case R.id.item2:
+                Intent i2 = new Intent(Search.this,SplashScreen.class);
+                startActivity(i2);
+                Log.i("TAG", "Item 2 selected");
+                break;
+            case R.id.item3:
+                Intent i3 = new Intent(Search.this,Report.class);
+                startActivity(i3);
+                Log.i("TAG", "Item 3 selected");
+                break;
+            case R.id.item4:
+                Log.i("TAG", "Item 4 selected");
+                Intent i4 = new Intent(Search.this,AllViolations.class);
+                startActivity(i4);
+                break;
+        }
     }
 }

@@ -20,10 +20,11 @@ android {
 
     defaultConfig {
         applicationId "com.example.ibra.newproject"
-        minSdkVersion 15
+        minSdkVersion 16
         targetSdkVersion 23
         versionCode 1
         versionName "1.0"
+        generatedDensities = []
     }
     buildTypes {
         release {
@@ -40,7 +41,7 @@ dependencies {
     compile 'com.android.support:design:23.1.1'
     compile 'com.parse.bolts:bolts-android:1.+'
     compile files('libs/Parse-1.11.0/Parse-1.11.0.jar')
-    compile 'com.jakewharton:butterknife:6.1.0'
+    compile 'com.jakewharton:butterknife:7.0.1'
     compile 'com.android.support:cardview-v7:23.1.0'
     compile 'com.android.support:recyclerview-v7:23.1.0'
 
@@ -53,4 +54,6 @@ dependencies {
 
     compile 'com.github.jjobes:slideDateTimePicker:1.0.2'
     /*compile 'com.parse:parseui-widget-android:0.0.1'*/
+    compile 'com.github.michaldrabik:tapbarmenu:1.0.4'
+
 }
