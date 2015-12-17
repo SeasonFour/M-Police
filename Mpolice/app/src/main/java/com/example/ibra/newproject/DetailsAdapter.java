@@ -15,10 +15,10 @@ import java.util.List;
  * Created by lucie on 12/9/15.
  */
 public class DetailsAdapter extends RecyclerView.Adapter<DetailsAdapter.PoliceHolder> {
-    List<String> number_plate,description,owner, status;
+    String number_plate,description,owner, status;
     Context context;
 
-    public DetailsAdapter(Context context, List<String> number_plate, List<String> description, List<String> owner, List<String> status){
+    public DetailsAdapter(Context context, String number_plate, String description, String owner, String status){
         this.context = context;
         this.number_plate = number_plate;
         this.description = description;
@@ -36,17 +36,16 @@ public class DetailsAdapter extends RecyclerView.Adapter<DetailsAdapter.PoliceHo
 
     @Override
     public void onBindViewHolder(PoliceHolder holder, int i) {
-        holder.tv_number_plate.setText("Number plate: "+number_plate.get(i));
-        holder.tv_description.setText("Description of the car: "+description.get(i));
-        holder.tv_owner.setText("Car owner: "+owner.get(i));
-        holder.tv_status.setText("STATUS: "+status.get(i));
+        holder.tv_number_plate.setText("Number plate: "+number_plate);
+        holder.tv_description.setText("Description of the car: "+description);
+        holder.tv_owner.setText("Car owner: "+owner);
+        holder.tv_status.setText("STATUS: "+status);
 
     }
 
     @Override
     public int getItemCount() {
-        Log.d("police adapter", "size: " + number_plate.size());
-        return number_plate.size();
+        return 1;
     }
 
     //view holder class
@@ -62,5 +61,9 @@ public class DetailsAdapter extends RecyclerView.Adapter<DetailsAdapter.PoliceHo
             tv_owner = (TextView) v.findViewById(R.id.owner);
             tv_status = (TextView) v.findViewById(R.id.status);
         }
+    }
+
+    public interface RecyclerViewListener{
+        public void recyclerViewClicked(View v, int position);
     }
 }

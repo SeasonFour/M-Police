@@ -1,6 +1,7 @@
 package com.example.ibra.newproject;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -14,28 +15,31 @@ import java.util.List;
 /**
  * Created by lucie on 12/9/15.
  */
-public class ViolationsAdapter extends RecyclerView.Adapter<ViolationsAdapter.PoliceHolder> {
+public class ViolationsAdapter extends RecyclerView.Adapter<ViolationsAdapter.ViolationsHolder> {
     List<String> number_plate,description,owner, status;
     Context context;
+    private static RecyclerViewListener itemListener;
 
-    public ViolationsAdapter(Context context, List<String> number_plate, List<String> description, List<String> owner, List<String> status){
+
+    public ViolationsAdapter(Context context, List<String> number_plate, List<String> description, List<String> owner, List<String> status, RecyclerViewListener itemListener){
         this.context = context;
         this.number_plate = number_plate;
         this.description = description;
         this.owner = owner;
         this.status = status;
+        this.itemListener = itemListener;
     }
 
     @Override
-    public PoliceHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ViolationsHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.mpolice_card, parent, false);
-        PoliceHolder pHolder = new PoliceHolder(v);
+        ViolationsHolder pHolder = new ViolationsHolder(v);
 
         return pHolder;
     }
 
     @Override
-    public void onBindViewHolder(PoliceHolder holder, int i) {
+    public void onBindViewHolder(ViolationsHolder holder, int i) {
         holder.tv_number_plate.setText(number_plate.get(i));
         holder.tv_description.setText(description.get(i));
         holder.tv_owner.setText(owner.get(i));
@@ -45,22 +49,29 @@ public class ViolationsAdapter extends RecyclerView.Adapter<ViolationsAdapter.Po
 
     @Override
     public int getItemCount() {
-        Log.d("food adapter", "size: " + number_plate.size());
+        Log.d("mpolice adapter", "size: " + number_plate.size());
         return number_plate.size();
     }
 
     //view holder class
-    public static class PoliceHolder extends RecyclerView.ViewHolder{
+    public static class ViolationsHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         CardView cardV;
         TextView tv_number_plate, tv_description,tv_owner, tv_status;
 
-        public PoliceHolder(View v) {
+        public ViolationsHolder(View v) {
             super(v);
             cardV = (CardView) v.findViewById(R.id.cardView);
             tv_number_plate = (TextView) v.findViewById(R.id.number_plate);
             tv_description = (TextView) v.findViewById(R.id.description);
             tv_owner = (TextView) v.findViewById(R.id.owner);
             tv_status = (TextView) v.findViewById(R.id.status);
+            v.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            itemListener.recyclerViewClicked(v,this.getLayoutPosition());
+
         }
     }
 }
