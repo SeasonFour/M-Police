@@ -12,9 +12,10 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:id="@+id/scrollView">
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -31,9 +32,7 @@
             android:checkedButton="@+id/lunch"
             android:onClick="gender"
             android:orientation="vertical"
-            android:layout_alignParentTop="true"
-            android:layout_toRightOf="@+id/textView2"
-            android:layout_toEndOf="@+id/textView2">
+            android:layout_below="@+id/textView2">
 
             <RadioButton
                 android:id="@+id/hitrunBtn"
@@ -63,118 +62,83 @@
                 android:text="@string/other" />
         </RadioGroup>
 
-       <!-- <android.support.design.widget.TextInputLayout
-            android:id="@+id/editTextLabel"
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/input_other"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-
-            >-->
+            android:layout_height="wrap_content">
             <EditText
+                android:id="@+id/violationOther"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/violationOther"
-                android:hint="@string/specify"
-                android:layout_below="@+id/radio"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true" />
+                android:hint="@string/other" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/number_plate"
-            android:id="@+id/textView4"
-            android:layout_below="@+id/violationOther"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
+        </android.support.design.widget.TextInputLayout>
+
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/input_numberP"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <EditText
+                android:id="@+id/numberPlate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/number_plate" />
+
+        </android.support.design.widget.TextInputLayout>
+
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/input_descr"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/description" />
+
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/input_location"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <EditText
+                android:id="@+id/location"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/location" />
+
+        </android.support.design.widget.TextInputLayout>
 
         <EditText
+            android:id="@+id/time"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/numberPlate"
-            android:layout_below="@+id/textView4"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/description"
-            android:id="@+id/textView5"
-            android:layout_below="@+id/numberPlate"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/description"
-            android:layout_below="@+id/textView5"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/location"
-            android:id="@+id/textView6"
-            android:layout_below="@+id/description"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/location"
-            android:layout_below="@+id/textView6"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/time_last_seen"
-            android:id="@+id/textView7"
-            android:layout_below="@+id/location"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
-
-        <!--<TimePicker
-            android:layout_width= "300dp"
-            android:layout_height="180dp"
-            android:id="@+id/timePicker"
-            android:layout_below="@+id/textView7"
-            android:layout_centerHorizontal="true" />-->
-
-
-
-        <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/time"
-            android:layout_below="@+id/textView7"
-            android:layout_alignRight="@+id/textView5"
-            android:layout_alignEnd="@+id/textView5" />
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/report"
-            android:id="@+id/reportBtn"
-            android:layout_below="@+id/time"
-            android:layout_centerHorizontal="true"
-            android:onClick="reportViolationClick" />
+            android:hint="@string/time_last_seen" />
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/set_time"
             android:id="@+id/timeBtn"
-            android:layout_below="@+id/location"
+            android:onClick="setTime"
             android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
-            android:onClick="setTime" />
+            android:layout_alignParentEnd="true" />
 
-    </RelativeLayout>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/report"
+            android:id="@+id/reportBtn"
+            android:onClick="reportViolationClick"
+            android:layout_below="@+id/scrollView"
+            android:layout_centerHorizontal="true" />
+
+
+    </LinearLayout>
 </ScrollView>
 
 

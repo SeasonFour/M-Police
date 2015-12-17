@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -30,6 +31,7 @@ public class Report extends AppCompatActivity {
 
     String Violation,Number_Plate, Description, Location, Time;
     String violationOther;
+    TextInputLayout textInputLayout;
 
     ParseObject obj = new ParseObject("Violations");
     ParseUser currentUser;
@@ -38,7 +40,7 @@ public class Report extends AppCompatActivity {
     private SlideDateTimeListener listener = new SlideDateTimeListener() {
         @Override
         public void onDateTimeSet(Date date) {
-            Toast.makeText(Report.this, myFormatter.format(date),Toast.LENGTH_SHORT).show();
+            //Toast.makeText(Report.this, myFormatter.format(date),Toast.LENGTH_SHORT).show();
             Time = myFormatter.format(date);
             etTime.setText(Time);
         }
@@ -62,6 +64,9 @@ public class Report extends AppCompatActivity {
         etDescription = (EditText) findViewById(R.id.description);
         etLocation = (EditText) findViewById(R.id.location);
         etTime = (EditText) findViewById(R.id.time);
+        textInputLayout = (TextInputLayout) findViewById(R.id.input_other);
+
+        textInputLayout.setVisibility(View.INVISIBLE);
 
         currentUser = ParseUser.getCurrentUser();
         Log.d("Current user", ""+currentUser);
@@ -74,19 +79,28 @@ public class Report extends AppCompatActivity {
         switch (v.getId()) {
             case R.id.accidentBtn:
                 if (checked)
+                    textInputLayout.setVisibility(v.INVISIBLE);
                     Violation = "Accident";
                 break;
 
             case R.id.hitrunBtn:
                 if (checked)
+                    textInputLayout.setVisibility(v.INVISIBLE);
                     Violation = "Hit and run";
                 break;
 
             case R.id.stolenBtn:
                 if (checked)
+                    textInputLayout.setVisibility(v.INVISIBLE);
                     Violation = "Stolen";
                 break;
 
+            case R.id.otherBtn:
+                if (checked){
+                    textInputLayout.setVisibility(v.VISIBLE);
+                }
+
+                break;
         }
     }
 
@@ -105,13 +119,8 @@ public class Report extends AppCompatActivity {
         Location = etLocation.getText().toString();
         Time = etTime.getText().toString();
 
+        new reportViolation().execute();
 
-        if (Violation.equals(null)){
-            Toast.makeText(getApplicationContext(),"Cant be null" ,Toast.LENGTH_SHORT).show();
-
-        }else{
-            new reportViolation().execute();
-        }
     }
 
     public class reportViolation extends AsyncTask<Void, Void, Void> {
