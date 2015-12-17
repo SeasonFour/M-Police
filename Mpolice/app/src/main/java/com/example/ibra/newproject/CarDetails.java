@@ -1,12 +1,14 @@
 package com.example.ibra.newproject;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
 
 import com.parse.ParseException;
 import com.parse.ParseObject;
@@ -25,16 +27,26 @@ public class CarDetails extends AppCompatActivity {
     List<String> description = new ArrayList<String>();
     List<String> owner = new ArrayList<String>();
     List<String> status = new ArrayList<String>();
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.d("mpolice", "before recycler");
         setContentView(R.layout.car_details);
+/*
+        @Override
+        public void recyclerViewClicked(View v, int position){
+
+        }*/
 
 
     }
 
-    public class getViolations extends AsyncTask<Void, Void, Void>{
+
+
+
+    /*public class getViolations extends AsyncTask<Void, Void, Void>{
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
@@ -75,6 +87,6 @@ public class CarDetails extends AppCompatActivity {
             recyclerV.setAdapter(new DetailsAdapter(getApplicationContext(), number_plate, description, owner, status));
             pDialog.cancel();
         }
-    }
+    }*/
 
 }

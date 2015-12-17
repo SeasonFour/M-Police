@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.parse.Parse;
 import com.parse.ParseObject;
 
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -20,7 +21,7 @@ import java.util.List;
  */
 public class MpoliceAdapter extends RecyclerView.Adapter<MpoliceAdapter.PoliceHolder> {
     ParseObject obj;
-    List<String> number_plate,description,owner, status;
+    List<String> number_plate,description,owner, status = Collections.emptyList();
     Context context;
 
     public MpoliceAdapter(Context context, List<String> number_plate,List<String> description,List<String> owner, List<String> status){
@@ -35,7 +36,6 @@ public class MpoliceAdapter extends RecyclerView.Adapter<MpoliceAdapter.PoliceHo
     public PoliceHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.mpolice_card, parent, false);
         PoliceHolder pHolder = new PoliceHolder(v);
-
         return pHolder;
     }
 
@@ -47,6 +47,12 @@ public class MpoliceAdapter extends RecyclerView.Adapter<MpoliceAdapter.PoliceHo
         holder.tv_status.setText("STATUS: "+status.get(i));
 
     }
+
+    @Override
+    public long getItemId(int position) {
+        return position;
+    }
+
 
     @Override
     public int getItemCount() {
