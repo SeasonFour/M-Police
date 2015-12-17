@@ -4,6 +4,7 @@ import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.SearchRecentSuggestions;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -11,6 +12,7 @@ import android.support.v7.widget.SearchView;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.widget.Toast;
 
 import com.parse.ParseException;
 import com.parse.ParseObject;
@@ -18,6 +20,8 @@ import com.parse.ParseQuery;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Search extends AppCompatActivity {
     RecyclerView recyclerV;
@@ -47,26 +51,38 @@ public class Search extends AppCompatActivity {
     }
 
     public void doMySearch(String numberP){
-        ParseQuery<ParseObject> query = ParseQuery.getQuery("Violations");
-        query.whereEqualTo("Number_plate", numberP);
-        try {
-            obj = query.find();
 
-        } catch (ParseException e) {
-            e.printStackTrace();
-            Log.d("mpolice", "after query");
+        Pattern p = Pattern.compile("(([A-Z]{3})|([a-z]{3}))([\\s])?([1-9][\\d]{2})(([A-Z]{1})|([a-z]{1}))$");
+        // Now create matcher object.
+        Matcher m = p.matcher(numberP.toLowerCase());
+        if (m.find()){
+
+            ParseQuery<ParseObject> query = ParseQuery.getQuery("Violations");
+
+            query.whereEqualTo("Number_plate", numberP.toLowerCase());
+            try {
+                obj = query.find();
+
+            } catch (ParseException e) {
+                e.printStackTrace();
+                Log.d("mpolice", "after query");
+            }
+
+            for (int i =0; i<obj.size();i++){
+                number_plate.add(obj.get(i).getString("Number_plate"));
+                description.add(obj.get(i).getString("Description"));
+                owner.add(obj.get(i).getString("Location"));
+                status.add(obj.get(i).getString("Violation"));
+            }
+
+            Log.d("mpolice", "before adapter");
+            recyclerV.setAdapter(new MpoliceAdapter(getApplicationContext(),number_plate,description,owner,status));
+            Log.d("mpolice", "after adapter");
+
+        }else {
+            Toast.makeText(getApplicationContext(), "Wrong License Plate, Try Again!", Toast.LENGTH_LONG).show();
         }
 
-        for (int i =0; i<obj.size();i++){
-            number_plate.add(obj.get(i).getString("Number_plate"));
-            description.add(obj.get(i).getString("Description"));
-            owner.add(obj.get(i).getString("Location"));
-            status.add(obj.get(i).getString("Violation"));
-        }
-
-        Log.d("mpolice", "before adapter");
-        recyclerV.setAdapter(new MpoliceAdapter(getApplicationContext(),number_plate,description,owner,status));
-        Log.d("mpolice", "after adapter");
     }
 
         @Override
@@ -88,6 +104,11 @@ public class Search extends AppCompatActivity {
         if (Intent.ACTION_SEARCH.equals(intent.getAction())){
             String query = intent.getStringExtra(SearchManager.QUERY);
             doMySearch(query);
+
+            SearchRecentSuggestions suggestions = new SearchRecentSuggestions(this,
+                    MySuggestionProvider.AUTHORITY, MySuggestionProvider.MODE);
+            suggestions.saveRecentQuery(query, null);
+
         }
 
     }
