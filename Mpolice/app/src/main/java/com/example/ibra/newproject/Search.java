@@ -54,12 +54,12 @@ public class Search extends AppCompatActivity {
 
         Pattern p = Pattern.compile("(([A-Z]{3})|([a-z]{3}))([\\s])?([1-9][\\d]{2})(([A-Z]{1})|([a-z]{1}))$");
         // Now create matcher object.
-        Matcher m = p.matcher(numberP);
+        Matcher m = p.matcher(numberP.toLowerCase());
         if (m.find()){
 
             ParseQuery<ParseObject> query = ParseQuery.getQuery("Violations");
 
-            query.whereEqualTo("Number_plate", numberP);
+            query.whereEqualTo("Number_plate", numberP.toLowerCase());
             try {
                 obj = query.find();
 
@@ -80,7 +80,7 @@ public class Search extends AppCompatActivity {
             Log.d("mpolice", "after adapter");
 
         }else {
-            Toast.makeText(getApplicationContext(), "Wrong License Plate!", Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), "Wrong License Plate, Try Again!", Toast.LENGTH_LONG).show();
         }
 
     }
