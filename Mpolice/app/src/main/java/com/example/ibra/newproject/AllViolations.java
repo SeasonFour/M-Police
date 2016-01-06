@@ -12,12 +12,17 @@ import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
+import com.michaldrabik.tapbarmenulib.TapBarMenu;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class AllViolations extends AppCompatActivity  {
     RecyclerView recyclerV;
@@ -32,6 +37,8 @@ public class AllViolations extends AppCompatActivity  {
 
     CardView cardV;
     TextView tv_number_plate, tv_description,tv_owner, tv_status;
+    @Bind(R.id.tapBarMenu)
+    TapBarMenu tapBarMenu;
 
     ProgressDialog pDialog;
     @Override
@@ -39,6 +46,7 @@ public class AllViolations extends AppCompatActivity  {
         super.onCreate(savedInstanceState);
         Log.d("mpolice", "before recycler");
         setContentView(R.layout.all_violations);
+        ButterKnife.bind(this);
 
         recyclerV = (RecyclerView) findViewById(R.id.recycler_violations);
         layoutManager = new LinearLayoutManager(getBaseContext());
@@ -94,14 +102,44 @@ public class AllViolations extends AppCompatActivity  {
 
         @Override
         public void recyclerViewClicked(View v, int position) {
+            Log.d("mpolice", "clicked: "+number_plate.get(position));
             for (int i =0; i<obj.size();i++) {
                 numberP = number_plate.get(position);
                 descr = description.get(position);
                 ownr = owner.get(position);
                 stats = status.get(position);
-                Log.d("mpolice", ""+number_plate.get(position));
+                Log.d("mpolice", "clicked: "+number_plate.get(position));
                 recyclerV.setAdapter(new DetailsAdapter(getApplicationContext(), numberP, descr, ownr, stats));
             }
+        }
+    }
+
+    @OnClick(R.id.tapBarMenu) public void onMenuButtonClick() {
+        tapBarMenu.toggle();
+    }
+
+    @OnClick({ R.id.item1, R.id.item2, R.id.item3, R.id.item4 }) public void onMenuItemClick(View view) {
+        tapBarMenu.close();
+        switch (view.getId()) {
+            case R.id.item1:
+                Intent i = new Intent(AllViolations.this,Report.class);
+                startActivity(i);
+                break;
+            case R.id.item2:
+                Intent i2 = new Intent(AllViolations.this,Search.class);
+                startActivity(i2);
+                Log.i("TAG", "Item 2 selected");
+                break;
+            case R.id.item3:
+                Intent i3 = new Intent(AllViolations.this,LogIn.class);
+                startActivity(i3);
+                Log.i("TAG", "Item 3 selected");
+                break;
+            case R.id.item4:
+                Log.i("TAG", "Item 4 selected");
+                Intent i4 = new Intent(AllViolations.this,AllViolations.class);
+                startActivity(i4);
+                break;
         }
     }
 }

@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.github.jjobes.slidedatetimepicker.SlideDateTimeListener;
 import com.github.jjobes.slidedatetimepicker.SlideDateTimePicker;
+import com.michaldrabik.tapbarmenulib.TapBarMenu;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseUser;
@@ -24,10 +25,14 @@ import com.parse.SaveCallback;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+
 public class Report extends AppCompatActivity {
     EditText etViolationOther,etNumberPlate, etDescription,etLocation,etTime;
-    RadioGroup violationType;
     ProgressDialog pDialog;
+    RadioGroup radioGroup;
 
     String Violation,Number_Plate, Description, Location, Time;
     String violationOther;
@@ -35,6 +40,9 @@ public class Report extends AppCompatActivity {
 
     ParseObject obj = new ParseObject("Violations");
     ParseUser currentUser;
+
+    @Bind(R.id.tapBarMenu)
+    TapBarMenu tapBarMenu;
 
     private SimpleDateFormat myFormatter = new SimpleDateFormat("MMMM dd yyyy hh:mm aa");
     private SlideDateTimeListener listener = new SlideDateTimeListener() {
@@ -55,9 +63,13 @@ public class Report extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_report);
+        ButterKnife.bind(this);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("Report a violation");
+
         setSupportActionBar(toolbar);
+
+
 
         etViolationOther = (EditText) findViewById(R.id.violationOther);
         etNumberPlate = (EditText) findViewById(R.id.numberPlate);
@@ -65,43 +77,49 @@ public class Report extends AppCompatActivity {
         etLocation = (EditText) findViewById(R.id.location);
         etTime = (EditText) findViewById(R.id.time);
         textInputLayout = (TextInputLayout) findViewById(R.id.input_other);
+        radioGroup = (RadioGroup) findViewById(R.id.radio);
 
         textInputLayout.setVisibility(View.INVISIBLE);
 
         currentUser = ParseUser.getCurrentUser();
-        Log.d("Current user", ""+currentUser);
-
+        Log.d("Current user", "" + currentUser);
     }
 
 
     public void typeOfViolation(View v) {
-        boolean checked = ((RadioButton) v).isChecked();
-        switch (v.getId()) {
-            case R.id.accidentBtn:
-                if (checked)
-                    textInputLayout.setVisibility(v.INVISIBLE);
+        // (radioGroup.getCheckedRadioButtonId() == -1)
+            /*Toast.makeText(getBaseContext(),
+                    "Please enter the violation type",
+                    Toast.LENGTH_LONG).show();*/
+
+            boolean checked = ((RadioButton) v).isChecked();
+            switch (v.getId()) {
+                case R.id.accidentBtn:
+                    if (checked)
+                        textInputLayout.setVisibility(v.INVISIBLE);
                     Violation = "Accident";
-                break;
-
-            case R.id.hitrunBtn:
-                if (checked)
-                    textInputLayout.setVisibility(v.INVISIBLE);
+                    break;
+                case R.id.hitrunBtn:
+                    if (checked)
+                        textInputLayout.setVisibility(v.INVISIBLE);
                     Violation = "Hit and run";
-                break;
-
-            case R.id.stolenBtn:
-                if (checked)
-                    textInputLayout.setVisibility(v.INVISIBLE);
+                    break;
+                case R.id.stolenBtn:
+                    if (checked)
+                        textInputLayout.setVisibility(v.INVISIBLE);
                     Violation = "Stolen";
-                break;
+                    break;
+                case R.id.otherBtn:
+                    if (checked)
+                        textInputLayout.setVisibility(v.VISIBLE);
+                    break;
+                default:
+                    Toast.makeText(getBaseContext(),
+                            "Please enter the violation type",
+                            Toast.LENGTH_LONG).show();
+                    break;
+            }
 
-            case R.id.otherBtn:
-                if (checked){
-                    textInputLayout.setVisibility(v.VISIBLE);
-                }
-
-                break;
-        }
     }
 
     public void setTime(View v){
@@ -113,6 +131,11 @@ public class Report extends AppCompatActivity {
     }
 
     public void reportViolationClick(View v) {
+
+        if (radioGroup.getCheckedRadioButtonId() == -1){
+            Intent i = new Intent(Report.this,Report.class);
+            startActivity(i);
+        }else{
         violationOther = etViolationOther.getText().toString().trim();
         Number_Plate = etNumberPlate.getText().toString().trim();
         Description = etDescription.getText().toString();
@@ -120,7 +143,7 @@ public class Report extends AppCompatActivity {
         Time = etTime.getText().toString();
 
         new reportViolation().execute();
-
+        }
     }
 
     public class reportViolation extends AsyncTask<Void, Void, Void> {
@@ -137,11 +160,17 @@ public class Report extends AppCompatActivity {
         @Override
         protected Void doInBackground(Void... params) {
             obj = new ParseObject("Violations");
-            obj.put("Violation", Violation);
-            obj.put("Number_plate", Number_Plate);
-            obj.put("Description", Description);
-            obj.put("Location", Location);
-            obj.put("Time", Time);
+            try {
+                obj.put("Violation", Violation);
+                obj.put("Number_plate", Number_Plate);
+                obj.put("Description", Description);
+                obj.put("Location", Location);
+                obj.put("Time", Time);
+                obj.put("Other",violationOther);
+            }catch (Exception e){
+                Log.e("mpolice","exception",e);
+                Log.e("mpolice", "Exception: "+Log.getStackTraceString(e));
+            }
             obj.saveEventually();
             return null;
         }
@@ -156,26 +185,44 @@ public class Report extends AppCompatActivity {
                         Toast.makeText(getBaseContext(),
                                 "Reporting violation successful",
                                 Toast.LENGTH_LONG).show();
-
                     } else {
                         Toast.makeText(getBaseContext(),
                                 "Error.Reporting violation up not successful",
                                 Toast.LENGTH_LONG).show();
                     }
-
                 }
             });
 
             pDialog.dismiss();
-            /*etViolationOther.setText("");
-            etNumberPlate.setText("");
-            etDescription.setText("");
-            etLocation.setText("");
-            etTime.setText("");*/
-
         }
-
     }
 
+    @OnClick(R.id.tapBarMenu) public void onMenuButtonClick() {
+        tapBarMenu.toggle();
+    }
 
+    @OnClick({ R.id.item1, R.id.item2, R.id.item3, R.id.item4 }) public void onMenuItemClick(View view) {
+        tapBarMenu.close();
+        switch (view.getId()) {
+            case R.id.item1:
+                Intent i = new Intent(Report.this,Report.class);
+                startActivity(i);
+                break;
+            case R.id.item2:
+                Intent i2 = new Intent(Report.this,Search.class);
+                startActivity(i2);
+                Log.i("TAG", "Item 2 selected");
+                break;
+            case R.id.item3:
+                Intent i3 = new Intent(Report.this,LogIn.class);
+                startActivity(i3);
+                Log.i("TAG", "Item 3 selected");
+                break;
+            case R.id.item4:
+                Log.i("TAG", "Item 4 selected");
+                Intent i4 = new Intent(Report.this,AllViolations.class);
+                startActivity(i4);
+                break;
+        }
+    }
 }

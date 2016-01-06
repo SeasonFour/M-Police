@@ -31,5 +31,6 @@
     <string name="mpolice">M-POLICE</string>
     <string name="enter_plate_number">Enter plate number</string>
     <string name="search_title">Search violations</string>
+    <string name="violations_list">List of all violations.</string>
 
 </resources>

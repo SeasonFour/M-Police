@@ -29,7 +29,7 @@ public class LogIn extends AppCompatActivity {
 
                 Toast.makeText(getApplicationContext(), "Authentication successful for "
                         + phoneNumber, Toast.LENGTH_LONG).show();
-                Intent i = new Intent(LogIn.this,Search.class);
+                Intent i = new Intent(LogIn.this,AllViolations.class);
                 startActivity(i);
             }
 

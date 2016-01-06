@@ -136,12 +136,12 @@ public class Search extends AppCompatActivity {
                 startActivity(i);
                 break;
             case R.id.item2:
-                Intent i2 = new Intent(Search.this,SplashScreen.class);
+                Intent i2 = new Intent(Search.this,Search.class);
                 startActivity(i2);
                 Log.i("TAG", "Item 2 selected");
                 break;
             case R.id.item3:
-                Intent i3 = new Intent(Search.this,Report.class);
+                Intent i3 = new Intent(Search.this,LogIn.class);
                 startActivity(i3);
                 Log.i("TAG", "Item 3 selected");
                 break;

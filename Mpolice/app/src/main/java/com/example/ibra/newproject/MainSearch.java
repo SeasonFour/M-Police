@@ -22,6 +22,7 @@ public class MainSearch extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_search);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+       // toolbar.setTitle("Search number plate");
         setSupportActionBar(toolbar);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);

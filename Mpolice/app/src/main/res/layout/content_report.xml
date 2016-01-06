@@ -62,10 +62,16 @@
                 android:text="@string/other" />
         </RadioGroup>
 
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
         <android.support.design.widget.TextInputLayout
             android:id="@+id/input_other"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+
             <EditText
                 android:id="@+id/violationOther"
                 android:layout_width="match_parent"
@@ -74,11 +80,11 @@
 
         </android.support.design.widget.TextInputLayout>
 
-
         <android.support.design.widget.TextInputLayout
             android:id="@+id/input_numberP"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+
             <EditText
                 android:id="@+id/numberPlate"
                 android:layout_width="match_parent"
@@ -86,6 +92,7 @@
                 android:hint="@string/number_plate" />
 
         </android.support.design.widget.TextInputLayout>
+
 
 
         <android.support.design.widget.TextInputLayout
@@ -112,35 +119,99 @@
                 android:hint="@string/location" />
 
         </android.support.design.widget.TextInputLayout>
+<RelativeLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+    <EditText
+        android:id="@+id/time"
+        android:layout_width="154dp"
+        android:layout_height="wrap_content"
+        android:hint="@string/time_last_seen"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
-        <EditText
-            android:id="@+id/time"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/time_last_seen" />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/set_time"
+        android:id="@+id/timeBtn"
+        android:onClick="setTime"
+        android:layout_gravity="center_horizontal"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/time"
+        android:layout_toEndOf="@+id/time" />
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/set_time"
-            android:id="@+id/timeBtn"
-            android:onClick="setTime"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true" />
+</RelativeLayout>
 
-        <Button
+    <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/report"
             android:id="@+id/reportBtn"
             android:onClick="reportViolationClick"
             android:layout_below="@+id/scrollView"
-            android:layout_centerHorizontal="true" />
+            android:layout_centerHorizontal="true"
+        android:layout_gravity="center_horizontal" />
 
+    <com.michaldrabik.tapbarmenulib.TapBarMenu
+        android:id="@+id/tapBarMenu"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:gravity="bottom"
+        android:layout_marginBottom="24dp">
 
+        <ImageView
+
+            android:id="@+id/item4"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:src="@drawable/home" />
+
+        <ImageView
+            android:id="@+id/item2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:src="@drawable/search"
+            />
+
+        <Space
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            />
+
+        <ImageView
+            android:id="@+id/item1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:src="@drawable/add"
+            />
+
+        <ImageView
+            android:id="@+id/item3"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:src="@drawable/profile"
+            />
+
+    </com.michaldrabik.tapbarmenulib.TapBarMenu>
+
+</LinearLayout>
     </LinearLayout>
 </ScrollView>
-
 
 
 </RelativeLayout>
