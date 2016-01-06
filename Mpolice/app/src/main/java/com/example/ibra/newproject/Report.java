@@ -69,8 +69,6 @@ public class Report extends AppCompatActivity {
 
         setSupportActionBar(toolbar);
 
-
-
         etViolationOther = (EditText) findViewById(R.id.violationOther);
         etNumberPlate = (EditText) findViewById(R.id.numberPlate);
         etDescription = (EditText) findViewById(R.id.description);
@@ -80,6 +78,11 @@ public class Report extends AppCompatActivity {
         radioGroup = (RadioGroup) findViewById(R.id.radio);
 
         textInputLayout.setVisibility(View.INVISIBLE);
+
+        Number_Plate = etNumberPlate.getText().toString().trim();
+        Description = etDescription.getText().toString();
+        Location = etLocation.getText().toString();
+        Time = etTime.getText().toString();
 
         currentUser = ParseUser.getCurrentUser();
         Log.d("Current user", "" + currentUser);
@@ -112,6 +115,8 @@ public class Report extends AppCompatActivity {
                 case R.id.otherBtn:
                     if (checked)
                         textInputLayout.setVisibility(v.VISIBLE);
+                    violationOther = etViolationOther.getText().toString().trim();
+                    Violation = violationOther;
                     break;
                 default:
                     Toast.makeText(getBaseContext(),
@@ -131,18 +136,12 @@ public class Report extends AppCompatActivity {
     }
 
     public void reportViolationClick(View v) {
-
-        if (radioGroup.getCheckedRadioButtonId() == -1){
-            Intent i = new Intent(Report.this,Report.class);
-            startActivity(i);
-        }else{
-        violationOther = etViolationOther.getText().toString().trim();
-        Number_Plate = etNumberPlate.getText().toString().trim();
-        Description = etDescription.getText().toString();
-        Location = etLocation.getText().toString();
-        Time = etTime.getText().toString();
-
-        new reportViolation().execute();
+        if (Violation == null){
+            Toast.makeText(getBaseContext(),
+                    "Please enter the violation type",
+                    Toast.LENGTH_LONG).show();
+        }else {
+            new reportViolation().execute();
         }
     }
 
@@ -168,8 +167,8 @@ public class Report extends AppCompatActivity {
                 obj.put("Time", Time);
                 obj.put("Other",violationOther);
             }catch (Exception e){
-                Log.e("mpolice","exception",e);
-                Log.e("mpolice", "Exception: "+Log.getStackTraceString(e));
+                Log.e("mpolice", "exception",e);
+                Log.e("mpolice", "Exception: " + Log.getStackTraceString(e));
             }
             obj.saveEventually();
             return null;
